@@ -1,4 +1,5 @@
 var express = require('express');
+var SendBird = require('sendbird');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -40,6 +41,10 @@ MongoClient.connect(url, function(err, db) {
     db.close();
   });
 });
+
+var sb = new SendBird({"appId":"B27C3E56-E48A-4CC4-B788-10E163501C17"});
+
+sb.connect("bobiscool", function(user, error) {});
 
 app.get('/', function(request, response) {
   	response.render('pages/index');
