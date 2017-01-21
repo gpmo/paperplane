@@ -14,7 +14,7 @@ var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
 
 // Connection URL
-var url = 'mongodb://<user>:<user>@ds117899.mlab.com:17899/heroku_npp0n9k5';
+var url = 'mongodb://test:test@ds117899.mlab.com:17899/heroku_npp0n9k5';
 
 var insertDocuments = function(db, callback) {
   // Get the documents collection
@@ -42,11 +42,13 @@ MongoClient.connect(url, function(err, db) {
 });
 
 app.get('/', function(request, response) {
-  response.render('pages/index');
+  	response.render('pages/index');
+});
+
+app.post('/login', function(request, response) {
+	response.send("hello world");
 });
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-
-
