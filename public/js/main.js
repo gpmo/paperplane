@@ -1,4 +1,4 @@
-$("#mainInput").keyup(function (e) {
+$("#pp-terminal-area").keyup(function (e) {
   // User pressed enter
   if (e.keyCode == 13) {
     var data = $("#mainInput").val().trim();

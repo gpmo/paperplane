@@ -8,23 +8,23 @@
     <title>Paper Planes</title>
 
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
-    <link href="stylesheets/custom.css" rel="stylesheet"> 
+    <link href="stylesheets/custom.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:700i" rel="stylesheet">
   </head>
   <body class = "pp-body">
-    <div class="pp-title"> 
+    <div class="pp-title">
         Paper Planes
         <img id="pp-logo" src="images/pplane.png"></a>
     </div>
     <div class ="pp-text">
-      <p><pp-yellow>To join a course chatroom: <pp-grey>/join [COURSE CODE]</pp-grey>
-      </pp-yellow></p>
+      <p><pp-yellow>To join a course chatroom: </pp-yellow><pp-grey>/join [COURSE CODE] (example: /join cis-121)</pp-grey>
+      </p>
     </div>
     <!-- <p class="pp-roomname">CIS 262</p> -->
     <pp-grey>
     <div class="pre-scrollable">
-      <div class="pp-text">
+      <div class="pp-text" id="main-chat">
         <p><pp-yellow>Welcome to Paper Planes!</pp-yellow></p>
         <p><pp-pink>Invalid course code<pp-pink></p>
         <p><pp-pink>Class not in session<pp-pink></p>
@@ -38,17 +38,20 @@
       </div>
     </div>
 
-    <hr></hr>  
+    <hr></hr>
     <textarea autofocus onblur="this.focus()" id="pp-terminal-area" class="pp-terminal-area" rows="1" cols="100"></textarea>
-
+    <input type="hidden" id="username" name="username" value="<%= username %>">
+    <input type="hidden" id="channel" name="channel" value="">
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-3.1.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/SendBird.min.js"></script>
     <script src="js/autosize.js"></script>
     <script src="js/custom.js"></script>
-
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/sb.js"></script>
   </body>
 </html>

@@ -1,5 +1,7 @@
 var express = require('express');
 var SendBird = require('sendbird');
+var Haikunator = require('haikunator');
+var haikunator = new Haikunator();
 var app = express();
 var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
@@ -21,7 +23,7 @@ var url = 'mongodb://test:test@ds117899.mlab.com:17899/heroku_npp0n9k5';
 
 app.get('/', function(request, response) {
     var usernameString = haikunator.haikunate({tokenLength: 0})
-  	response.render('pages/index', {
+  	response.render('pages/pp-home', {
       username: usernameString
     });
 });

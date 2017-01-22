@@ -49,6 +49,7 @@ function createChannel(course_name, connection) {
           console.error(error);
           return;
       }
+      exit(this.channel);
       this.channel = channel;
       setUpConnectionHandler(connection);
       console.log(getOldMessages(channel));
@@ -64,6 +65,7 @@ function enterChannel(channel_url, connection) {
         return;
     }
 
+    exitChannel(this.channel);
     channel.enter(function(response, error){
         if (error) {
             console.error(error);
@@ -81,6 +83,7 @@ function setUpConnectionHandler(connection) {
   channelHandler = new connection.ChannelHandler();
   channelHandler.onMessageReceived = function(channel, message){
     console.log(channel, message);
+    appendMessageToChat(message);
   };
   connection.addChannelHandler("this is unique", channelHandler);
 }
@@ -89,12 +92,12 @@ function sendMessage(message) {
   if (message == "" || message == undefined || message == null) {
     return;
   }
-  channel.sendUserMessage(message, "", function(message, error) {
+  channel.sendUserMessage(message, "", function(messageObject, error) {
     if (error) {
         console.error(error);
         return;
     }
-    //console.log(message);
+    appendMessageToChat(messageObject);
   });
 }
 
@@ -106,10 +109,31 @@ function getOldMessages(channel) {
           console.error(error);
           return;
       }
+      for (var i = messageList.length - 1; i >= 0; i--) {
+        var message = messageList[i];
+        appendMessageToChat(message);
+      }
       console.log(messageList);
   });
 }
 
-function exitChannel(channel) {
+function appendMessageToChat(message) {
+  $("#main-chat").append("<p><pp-blue>[" + message.createdAt + "] " +
+    message.sender.userId + ": </pp-blue>" + message.message +"</p>");
+}
 
+function exitChannel(channel) {
+  if (channel != null || channel != "" || channel != undefined) {
+    channel.exit(function(response, error) {
+        if (error) {
+            console.error(error);
+            return;
+        }
+        console.log("exited channel " + channel.name);
+    });
+  }
+}
+
+function deleteChannel(channel) {
+  
 }
