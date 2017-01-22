@@ -20,7 +20,10 @@ var MongoClient = require('mongodb').MongoClient
 var url = 'mongodb://test:test@ds117899.mlab.com:17899/heroku_npp0n9k5';
 
 app.get('/', function(request, response) {
-  	response.render('pages/pp-home');
+    var usernameString = haikunator.haikunate({tokenLength: 0})
+  	response.render('pages/index', {
+      username: usernameString
+    });
 });
 
 app.get('/join-class', function(request, response) {

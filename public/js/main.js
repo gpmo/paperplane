@@ -1,8 +1,3 @@
-$.get("/create-username", function (username) {
-  $("#username").val(username);
-  alert(username);
-});
-
 $("#mainInput").keyup(function (e) {
   // User pressed enter
   if (e.keyCode == 13) {
