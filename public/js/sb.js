@@ -1,8 +1,6 @@
 var sb = new SendBird({"appId":"B27C3E56-E48A-4CC4-B788-10E163501C17"});
-var channel;
+var channelObject = undefined;
 var channelHandler;
-
-joinChannel("mgmt-101");
 
 function joinChannel(channel_name) {
   var username = $("#username").val();
@@ -10,18 +8,18 @@ function joinChannel(channel_name) {
   // check if user is trying to join the same class he is in
   if (channel_name == currentChannel) {
     console.log("user is already in this channel");
-    return;
+    return true;
   }
   // make sure that we already have a username for person
   if (username != null && username != undefined && username != "") {
     // check if channel exists
     sb.connect(username, function(user, error) {
-      doesChannelExist(channel_name, sb);
+      accessChannel(channel_name, sb);
     });
   }
 }
 
-function doesChannelExist(channel_name, connection) {
+function accessChannel(channel_name, connection) {
   var openChannelListQuery = connection.OpenChannel.createOpenChannelListQuery();
 
   openChannelListQuery.next(function (response, error) {
@@ -49,8 +47,8 @@ function createChannel(course_name, connection) {
           console.error(error);
           return;
       }
-      exit(this.channel);
-      this.channel = channel;
+      exitChannel(channelObject);
+      channelObject = channel;
       setUpConnectionHandler(connection);
       console.log(getOldMessages(channel));
       console.log("creating channel");
@@ -65,13 +63,13 @@ function enterChannel(channel_url, connection) {
         return;
     }
 
-    exitChannel(this.channel);
+    exitChannel(channelObject);
     channel.enter(function(response, error){
         if (error) {
             console.error(error);
             return;
         }
-        this.channel = channel;
+        channelObject = channel;
         setUpConnectionHandler(connection);
         console.log(getOldMessages(channel));
         console.log("entered channel");
@@ -98,6 +96,7 @@ function sendMessage(message) {
         return;
     }
     appendMessageToChat(messageObject);
+    $('#pp-scrollable').scrollTop($('#pp-scrollable')[0].scrollHeight);
   });
 }
 
@@ -118,12 +117,13 @@ function getOldMessages(channel) {
 }
 
 function appendMessageToChat(message) {
-  $("#main-chat").append("<p><pp-blue>[" + message.createdAt + "] " +
+  var time = unixToTime(message.createdAt);
+  $("#main-chat").append("<p><pp-blue>[" + time + "] " +
     message.sender.userId + ": </pp-blue>" + message.message +"</p>");
 }
 
 function exitChannel(channel) {
-  if (channel != null || channel != "" || channel != undefined) {
+  if (channel != null && channel != "" && channel != undefined) {
     channel.exit(function(response, error) {
         if (error) {
             console.error(error);
@@ -135,5 +135,5 @@ function exitChannel(channel) {
 }
 
 function deleteChannel(channel) {
-  
+
 }
