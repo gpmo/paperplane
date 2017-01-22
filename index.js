@@ -1,5 +1,7 @@
 var express = require('express');
 var SendBird = require('sendbird');
+var Haikunator = require('haikunator');
+var haikunator = new Haikunator();
 var app = express();
 var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
@@ -20,7 +22,10 @@ var MongoClient = require('mongodb').MongoClient
 var url = 'mongodb://test:test@ds117899.mlab.com:17899/heroku_npp0n9k5';
 
 app.get('/', function(request, response) {
-  	response.render('pages/pp-home');
+    var usernameString = haikunator.haikunate({tokenLength: 0})
+  	response.render('pages/pp-home', {
+      username: usernameString
+    });
 });
 
 app.get('/join-class', function(request, response) {
@@ -43,7 +48,8 @@ app.get('/join-class', function(request, response) {
   };
 
   if (!(id_param in idToFull)) {
-    response.status(404).send({"result": false});
+    response.send({"result": false, "error": "Class does not exist."});
+    return;
   }
 
   var course_id = idToFull[id_param];
@@ -58,12 +64,14 @@ app.get('/join-class', function(request, response) {
       assert.equal(err, null);
       // didn't find class
       if (docs.length < 1) {
-        response.status(404).send({"result": false});
+        response.send({"result": false, "error": "Class does not exist."});
+        return;
       } else {
         course = docs[0];
         var date = new Date();
         var day = date.getDay();
         var dayToLetter = {
+          0: 'Su',
           1: 'M',
           2: 'T',
           3: 'W',
@@ -74,11 +82,13 @@ app.get('/join-class', function(request, response) {
         var meeting_days = course['meeting_days'];
         // wrong time
         if (meeting_days.indexOf(dayToLetter[day]) == -1) {
-          response.status(200).send({"result": false});
+          response.send({"result": false, "error": "Go have some fun. Class has not yet started."});
+          return;
         } else {
           var time = date.getHours() * 60 + date.getMinutes();
           var result = time >= course['start_time'] && time <= course['end_time'];
-          response.status(200).send({"result": result});
+          response.send({"result": result});
+          return;
         }
       }
     });

@@ -1,9 +1,4 @@
-$.get("/create-username", function (username) {
-  $("#username").val(username);
-  alert(username);
-});
-
-$("#mainInput").keyup(function (e) {
+$("#pp-terminal-area").keyup(function (e) {
   // User pressed enter
   if (e.keyCode == 13) {
     var data = $("#mainInput").val().trim();
