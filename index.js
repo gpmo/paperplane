@@ -44,7 +44,8 @@ app.get('/get-class-times', function(request, response) {
     'CIS401': 'CIS401001',
     'CIS450': 'CIS450401',
     'CIS455': 'CIS455401',
-    'TEST': 'test'
+    'TEST': 'test',
+    'TEST1': 'test1',
   };
 
   var course_id = idToFull[id_param];
@@ -88,7 +89,8 @@ app.get('/join-class', function(request, response) {
     'CIS401': 'CIS401001',
     'CIS450': 'CIS450401',
     'CIS455': 'CIS455401',
-    'TEST': 'test'
+    'TEST': 'test',
+    'TEST1': 'test1',
   };
 
   if (!(id_param in idToFull)) {
