@@ -27,19 +27,19 @@ app.get('/join-class', function(request, response) {
   var id_param = request.query.id;
 
   var idToFull = {
-    'CIS-110': 'CIS110001',
-    'CIS-120': 'CIS120001',
-    'CIS-121': 'CIS121001',
-    'CIS-160': 'CIS160001',
-    'CIS-240': 'CIS240001',
-    'CIS-320': 'CIS320001',
-    'CIS-331': 'CIS331001',
-    'CIS-350': 'CIS350001',
-    'CIS-371': 'CIS371001',
-    'CIS-401': 'CIS401001',
-    'CIS-450': 'CIS450401',
-    'CIS-455': 'CIS455401',
-    'test': 'test'
+    'CIS110': 'CIS110001',
+    'CIS120': 'CIS120001',
+    'CIS121': 'CIS121001',
+    'CIS160': 'CIS160001',
+    'CIS240': 'CIS240001',
+    'CIS320': 'CIS320001',
+    'CIS331': 'CIS331001',
+    'CIS350': 'CIS350001',
+    'CIS371': 'CIS371001',
+    'CIS401': 'CIS401001',
+    'CIS450': 'CIS450401',
+    'CIS455': 'CIS455401',
+    'TEST': 'test'
   };
 
   if (!(id_param in idToFull)) {
