@@ -30,6 +30,9 @@ var handleInput = function(input){
             appendInfoMessage("Welcome to " + testInput + "!");
           }
         } else {
+          if (data.error == "Go have some fun. Class has not yet started.") {
+            deleteChannel(channelObject);
+          }
           appendErrorMessage(data.error);
         }
 			});
@@ -51,7 +54,7 @@ var validateJoin = function(joinCall) {
 		return false;
 	}
 	command.shift();
-	var course = command.join();
+	var course = command.join("");
 	var upperCourse = course.toUpperCase();
 	return upperCourse;
 };

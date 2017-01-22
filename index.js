@@ -28,6 +28,50 @@ app.get('/', function(request, response) {
     });
 });
 
+app.get('/get-class-times', function(request, response) {
+  var id_param = request.query.id;
+
+  var idToFull = {
+    'CIS110': 'CIS110001',
+    'CIS120': 'CIS120001',
+    'CIS121': 'CIS121001',
+    'CIS160': 'CIS160001',
+    'CIS240': 'CIS240001',
+    'CIS320': 'CIS320001',
+    'CIS331': 'CIS331001',
+    'CIS350': 'CIS350001',
+    'CIS371': 'CIS371001',
+    'CIS401': 'CIS401001',
+    'CIS450': 'CIS450401',
+    'CIS455': 'CIS455401',
+    'TEST': 'test'
+  };
+
+  var course_id = idToFull[id_param];
+
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+
+    var collection = db.collection('classes');
+
+    collection.find({'course_id': course_id}).toArray(function(err, docs) {
+      assert.equal(err, null);
+      // didn't find class
+      if (docs.length < 1) {
+        response.send({"result": false, "error": "Class does not exist."});
+        return;
+      } else {
+        course = docs[0];
+        var start_time = course['start_time'];
+        var end_time = course['end_time'];
+        response.send({"result": true, "start_time": start_time, "end_time": end_time});
+      }
+    });
+    db.close();
+  });
+});
+
 app.get('/join-class', function(request, response) {
   var id_param = request.query.id;
 

@@ -82,6 +82,7 @@ function setUpConnectionHandler(connection) {
   channelHandler.onMessageReceived = function(channel, message){
     console.log(channel, message);
     appendMessageToChat(message);
+    $('#pp-scrollable')[0].scrollTop += 25;
   };
   connection.addChannelHandler("this is unique", channelHandler);
 }
@@ -108,12 +109,31 @@ function getOldMessages(channel) {
           console.error(error);
           return;
       }
-      for (var i = messageList.length - 1; i >= 0; i--) {
-        var message = messageList[i];
-        appendMessageToChat(message);
-      }
-      console.log(messageList);
+      $.get("/get-class-times?id=" + channel.name, function(data) {
+        var start_time = data['start_time'];
+        var end_time = data['end_time'];
+        for (var i = messageList.length - 1; i >= 0; i--) {
+          var message = messageList[i];
+          if (checkTime(start_time, end_time, message.createdAt)) {
+            appendMessageToChat(message);
+          }
+        }
+        $('#pp-scrollable').scrollTop($('#pp-scrollable')[0].scrollHeight);
+        console.log(messageList);
+      });
   });
+}
+
+function checkTime(start_time, end_time, createdAt) {
+  var start_date = new Date();
+  var end_date = new Date();
+  start_date.setHours(parseInt(start_time/60));
+  end_date.setHours(parseInt(end_time/60));
+  var start_mins = start_time - parseInt(start_time/60) * 60;
+  var end_mins = end_time - parseInt(end_time/60) * 60;
+  start_date.setMinutes(start_mins);
+  end_date.setMinutes(end_mins);
+  return createdAt >= start_date && createdAt <= end_date;
 }
 
 function appendMessageToChat(message) {
@@ -135,5 +155,7 @@ function exitChannel(channel) {
 }
 
 function deleteChannel(channel) {
+  if (channel != null || channel != undefined) {
 
+  }
 }
