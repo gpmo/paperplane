@@ -92,7 +92,7 @@ app.get('/join-class', function(request, response) {
   };
 
   if (!(id_param in idToFull)) {
-    response.send({"result": false, "error": "Class does not exist."});
+    response.send({"result": false, "error": "I can't find that class."});
     return;
   }
 
@@ -108,7 +108,7 @@ app.get('/join-class', function(request, response) {
       assert.equal(err, null);
       // didn't find class
       if (docs.length < 1) {
-        response.send({"result": false, "error": "Class does not exist."});
+        response.send({"result": false, "error": "I can't find that class."});
         return;
       } else {
         course = docs[0];
@@ -126,7 +126,7 @@ app.get('/join-class', function(request, response) {
         var meeting_days = course['meeting_days'];
         // wrong time
         if (meeting_days.indexOf(dayToLetter[day]) == -1) {
-          response.send({"result": false, "error": "Go have some fun. Class has not yet started."});
+          response.send({"result": false, "error": "Class is not in session. Come back when class starts."});
           return;
         } else {
           var time = date.getHours() * 60 + date.getMinutes();

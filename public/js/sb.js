@@ -138,8 +138,13 @@ function checkTime(start_time, end_time, createdAt) {
 
 function appendMessageToChat(message) {
   var time = unixToTime(message.createdAt);
-  $("#main-chat").append("<p><pp-blue>[" + time + "] " +
-    message.sender.userId + ": </pp-blue>" + message.message +"</p>");
+  if ($("#username").val() == message.sender.userId) {
+    $("#main-chat").append("<p><pp-yellow>[" + time + "] " +
+      message.sender.userId + ": </pp-yellow>" + message.message +"</p>");
+  } else {
+    $("#main-chat").append("<p><pp-blue>[" + time + "] " +
+      message.sender.userId + ": </pp-blue>" + message.message +"</p>");
+  }
 }
 
 function exitChannel(channel) {

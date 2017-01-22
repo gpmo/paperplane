@@ -16,7 +16,7 @@ var handleInput = function(input){
 	if (input.startsWith('/join')) {
 		var testInput = validateJoin(input);
 		if (testInput == false) {
-      appendErrorMessage("Invalid course name. Correct usage example: /join cis120");
+      appendErrorMessage("I can't find that class.");
 		} else {
 			var url = '/join-class?id=' + testInput;
 			$.get(url, function(data){
@@ -25,12 +25,12 @@ var handleInput = function(input){
         if (result) {
           var alreadyJoined = joinChannel(testInput);
           if (alreadyJoined) {
-            appendInfoMessage("You've already joined this chat.");
+            appendInfoMessage("You're already in this class.");
           } else {
             appendInfoMessage("Welcome to " + testInput + "!");
           }
         } else {
-          if (data.error == "Go have some fun. Class has not yet started.") {
+          if (data.error == "Class is not in session. Come back when class starts.") {
             deleteChannel(channelObject);
           }
           appendErrorMessage(data.error);
@@ -42,7 +42,7 @@ var handleInput = function(input){
 		if (channelName != null && channelName != undefined && channelName != "") {
       sendMessage(input);
     } else {
-      appendErrorMessage("You need to first join a channel");
+      appendErrorMessage("Stop talking to a wall! Join a class.");
     }
 	}
 	$('#pp-terminal-area').val('');
