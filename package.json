@@ -12,6 +12,7 @@
   "dependencies": {
     "ejs": "2.4.1",
     "express": "4.13.3",
+    "haikunator": "^2.0.0",
     "mongodb": "^2.2.21",
     "sendbird": "^3.0.18",
     "sendbird-nodejs": "^1.0.0"

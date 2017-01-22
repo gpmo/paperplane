@@ -1,5 +1,7 @@
 var express = require('express');
 var SendBird = require('sendbird');
+var Haikunator = require('haikunator');
+var haikunator = new Haikunator();
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -42,16 +44,16 @@ MongoClient.connect(url, function(err, db) {
   });
 });
 
-var sb = new SendBird({"appId":"B27C3E56-E48A-4CC4-B788-10E163501C17"});
-
-sb.connect("bobiscool", function(user, error) {});
-
 app.get('/', function(request, response) {
   	response.render('pages/index');
 });
 
 app.post('/login', function(request, response) {
 	response.send("hello world");
+});
+
+app.get('/create-username', function(request, response) {
+  response.send(haikunator.haikunate({tokenLength: 0}));
 });
 
 app.listen(app.get('port'), function() {
