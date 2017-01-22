@@ -1,0 +1,1 @@
+autosize($('#pp-terminal-area'));

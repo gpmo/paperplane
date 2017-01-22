@@ -1,12 +1,10 @@
 var express = require('express');
 var SendBird = require('sendbird');
-var Haikunator = require('haikunator');
-var haikunator = new Haikunator();
 var app = express();
 var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 8080));
 
 app.use(express.static(__dirname + '/public'));
 
@@ -22,7 +20,7 @@ var MongoClient = require('mongodb').MongoClient
 var url = 'mongodb://test:test@ds117899.mlab.com:17899/heroku_npp0n9k5';
 
 app.get('/', function(request, response) {
-  	response.render('pages/index');
+  	response.render('pages/pp-home');
 });
 
 app.get('/join-class', function(request, response) {
@@ -86,10 +84,6 @@ app.get('/join-class', function(request, response) {
     });
     db.close();
   });
-});
-
-app.get('/create-username', function(request, response) {
-  response.send(haikunator.haikunate({tokenLength: 0}));
 });
 
 app.listen(app.get('port'), function() {

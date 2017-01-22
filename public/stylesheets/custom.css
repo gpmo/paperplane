@@ -1,0 +1,96 @@
+body {
+	margin-left: 25px;
+	margin-right:25px;
+}
+
+hr{
+	border-color:#999999;
+	margin-top: 10px;
+	margin-bottom:10px;
+
+}
+
+p{
+	margin-top: 1px;
+	margin-bottom: 1px;
+	-webkit-hyphens: auto;
+  	-moz-hyphens: auto;
+  	-ms-hyphens: auto;
+  	hyphens: auto;
+}
+
+.aligned-area{
+	vertical-align: text-top;
+}
+
+.pp-terminal-area{
+	width:100%;
+	resize:none;
+	color:white;
+	background-color: #363636;
+	font-family: 'Source Code Pro', monospace;
+	outline:0px;
+	border:0px;
+}
+
+.pp-input{
+	width:94%;
+/*	background-color: #363636;
+*/	color:black;
+	border:0px;
+	outline-width: 0px;
+	font-family: 'Source Code Pro', monospace;
+
+}
+.pp-title{
+	text-align: left;
+	color: white;
+	font-family: 'Roboto', sans-serif;
+	font-size: 26px;
+	margin-top:20px;
+	margin-bottom: 15px;
+}
+
+.pp-body{
+	background-color: #363636;
+}
+
+#pp-logo{
+	width:35px;
+	vertical-align: text-bottom;
+}
+
+#pp-terminal{
+	background-color: #363636;
+	border-color:#999999;
+}
+
+.pp-text{
+	font-family: 'Source Code Pro', monospace;
+	color:white;
+}
+
+.pp-roomname{
+	font-family: 'Source Code Pro', monospace;
+	color:#fff568;
+}
+
+pp-white{
+	color:white;
+}
+
+pp-grey{
+	color:#999999;
+}
+
+pp-blue{
+	color:#50e3c2;
+}
+
+pp-pink{
+	color:#ff2e88;
+}
+
+pp-yellow{
+	color:#fff568;
+}
